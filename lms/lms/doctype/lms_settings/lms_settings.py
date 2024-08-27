@@ -42,7 +42,7 @@ class LMSSettings(Document):
 					)
 				)
 
-@whitelist()
+frappe.whitelist(allow_guest=True)
 def call_payment_api(phone_number, fullname, amount):
     # Get API credentials from LMS settings doctype
     settings = frappe.get_single('LMS Settings')
@@ -85,20 +85,20 @@ def call_payment_api(phone_number, fullname, amount):
     # Make the API request
     response = requests.post('https://api.waafi.com/asm', data=json_data, headers={'Content-Type': 'application/json'})
 
-    # Process the response
-    if response.status_code == 200:
+    try:
+        response = requests.post('https://api.waafi.com/asm', data=json_data, headers={'Content-Type': 'application/json'})
+        response.raise_for_status()  # Raises an HTTPError for bad responses (4xx or 5xx)
+
+        # Process the response
         response_data = response.json()
         if response_data.get('responseMsg') == "RCS_SUCCESS":
-            # Handle success
-            frappe.msgprint('Payment was successful.')
-            return True
+            return {'status': 'success', 'message': 'Payment was successful.'}
         else:
-            # Handle other responses
-            frappe.msgprint(f"Payment failed: {response_data.get('responseMsg')}")
-            return False
-    else:
-        frappe.msgprint(f"Error in API call: {response.status_code} - {response.text}")
-        return False
+            return {'status': 'failed', 'message': f"Payment failed: {response_data.get('responseMsg')}"}
+
+    except requests.exceptions.RequestException as e:
+        frappe.log_error(frappe.get_traceback(), _("Payment API Error"))
+        return {'status': 'error', 'message': f"Error in API call: {str(e)}"}
 
 
 
