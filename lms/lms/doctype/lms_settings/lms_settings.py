@@ -83,10 +83,10 @@ def call_payment_api(phone_number, fullname, amount):
     json_data = json.dumps(data_array)
 
     # Make the API request
-    response = requests.post('https://api.waafi.com/asm', data=json_data, headers={'Content-Type': 'application/json'})
+    response = requests.post('https://api.waafipay.com/asm', data=json_data, headers={'Content-Type': 'application/json'})
 
     try:
-        response = requests.post('https://api.waafi.com/asm', data=json_data, headers={'Content-Type': 'application/json'})
+        response = requests.post('https://api.waafipay.com/asm', data=json_data, headers={'Content-Type': 'application/json'})
         response.raise_for_status()  # Raises an HTTPError for bad responses (4xx or 5xx)
 
         # Process the response
