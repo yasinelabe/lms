@@ -60,7 +60,7 @@
   "api_key",
   "api_user_id",
   "column_break_vbky",
-  "merchant_ui",
+  "merchant_uid",
   "account_id",
   "email_templates_tab",
   "certification_template",
@@ -405,20 +405,20 @@
    "fieldtype": "Column Break"
   },
   {
-   "fieldname": "merchant_ui",
-   "fieldtype": "Data",
-   "label": "MERCHANT UID"
-  },
-  {
    "fieldname": "account_id",
    "fieldtype": "Data",
    "label": "ACCOUNT ID"
+  },
+  {
+   "fieldname": "merchant_uid",
+   "fieldtype": "Data",
+   "label": "MERCHANT UID"
   }
  ],
  "index_web_pages_for_search": 1,
  "issingle": 1,
  "links": [],
- "modified": "2024-08-28 11:59:27.186898",
+ "modified": "2024-08-28 12:16:34.861891",
  "modified_by": "Administrator",
  "module": "LMS",
  "name": "LMS Settings",
