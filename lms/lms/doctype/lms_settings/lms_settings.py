@@ -42,14 +42,14 @@ class LMSSettings(Document):
 					)
 				)
 
-frappe.whitelist(allow_guest=True)
+@frappe.whitelist(allow_guest=True)
 def call_payment_api(phone_number, fullname, amount):
     # Get API credentials from LMS settings doctype
     settings = frappe.get_single('LMS Settings')
-    api_key = settings.apikey
-    merchant_uid = settings.merchantuid
-    api_user_id = settings.apiuserid
-    pgaccountid = settings.accountid
+    api_key = settings.api_key 
+    merchant_uid = settings.merchant_uid 
+    api_user_id = settings.api_user_id 
+    pgaccountid = settings.account_id 
 
     # Create data array similar to PHP version
     data_array = {
